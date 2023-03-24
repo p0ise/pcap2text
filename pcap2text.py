@@ -290,6 +290,7 @@ def main():
     # 解析键盘数据包，获取输入字符
     text = ""
     last_characters_count = {}
+    repeat_limit = 2
     for line in lines:
         capdata = line.strip().replace(':', '')
         print(capdata)
@@ -300,15 +301,16 @@ def main():
                 last_characters_count = {}
             else:
                 for character in characters:
-                    last_characters_count = {character: count for character,
-                                             count in last_characters_count.items() if character in characters}
-                    if character in last_characters_count:
-                        last_characters_count[character] += 1
-                        if last_characters_count[character] <= 4:
-                            continue
-                    else:
-                        last_characters_count[character] = 1
-                    text += character
+                    if character:
+                        last_characters_count = {character: count for character,
+                                                count in last_characters_count.items() if character in characters}
+                        if character in last_characters_count:
+                            last_characters_count[character] += 1
+                            if last_characters_count[character] <= repeat_limit:
+                                continue
+                        else:
+                            last_characters_count[character] = 1
+                        text += character
         else:
             pass
 
