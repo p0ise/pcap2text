@@ -293,7 +293,6 @@ def main():
     repeat_limit = 2
     for line in lines:
         capdata = line.strip().replace(':', '')
-        print(capdata)
         if capdata:
             data = bytearray.fromhex(capdata)
             characters = parse_boot_keyboard_report(data)[-1]
